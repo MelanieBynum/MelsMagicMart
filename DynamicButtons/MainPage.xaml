@@ -1,0 +1,139 @@
+﻿<Page
+    x:Class="DynamicButtons.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:DynamicButtons"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Page.Resources>
+        <SolidColorBrush x:Key="background1" Color="#add8e6"/>
+        <SolidColorBrush x:Key="background2" Color="#86c5da"/>
+        <SolidColorBrush x:Key="textboxBG" Color="#90ee90"/>
+        <SolidColorBrush x:Key="fontColor" Color="#000000"/>
+        <SolidColorBrush x:Key="headerFont" Color="#9191e9"/>
+        <SolidColorBrush x:Key="clearColor" Color="#bbbbf1"/>
+
+        <Style x:Key="outsideItemBox" TargetType="ListBox">
+            <Setter Property="Background" Value="{StaticResource background1}"/>
+            <Setter Property="Foreground" Value="{StaticResource fontColor}"/>
+        </Style>
+
+        <Style x:Key="insideItemBox" TargetType="ListBox">
+            <Setter Property="Background" Value="{StaticResource background2}"/>
+            <Setter Property="Foreground" Value="{StaticResource fontColor}"/>
+        </Style>
+
+        <Style x:Key="headerTextBox" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource headerFont}"/>
+        </Style>
+
+        <Style x:Key="lowerTextBox" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource fontColor}"/>
+        </Style>
+
+        <Style x:Key="checkoutButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource headerFont}"/>
+            <Setter Property="Foreground" Value="{StaticResource fontColor}"/>
+        </Style>
+
+        <Style x:Key="clearButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource clearColor}"/>
+            <Setter Property="Foreground" Value="{StaticResource fontColor}"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Border Background="#bbbbf1">
+            <TextBlock Grid.Row="0" FontSize="42" HorizontalAlignment="Center" Style ="{StaticResource headerTextBox}" VerticalAlignment="Center" Text="Welcome to Mel's MagicMart!"></TextBlock>
+        </Border>
+
+        <!--<Border Background="#86c5da">-->
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+            <Border Background="#86c5da" Grid.Column="0">
+                <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Style ="{StaticResource lowerTextBox}" Text="Products Priced by Weight (Oz)"></TextBlock>
+            </Border>
+
+
+            <Border Background="#add8e6" Grid.Column="1">
+                <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Style ="{StaticResource lowerTextBox}" Text="Products Priced by Unit"></TextBlock>
+            </Border>
+
+            <Border Background=" #86c5da" Grid.Column="2">
+                <TextBlock FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Center" Style ="{StaticResource lowerTextBox}" Text="Your Cart"></TextBlock>
+            </Border>
+                
+
+        </Grid>
+        <!--</Border>-->
+
+
+        <Grid Grid.Row ="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ListBox Grid.Column="0" ItemsSource="{Binding Products}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource outsideItemBox}" SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!--<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Name}" Click="Button_Click"></Button>-->
+                        <TextBlock Text="{Binding DisplayAll}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="1" ItemsSource="{Binding Products2}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource insideItemBox}" SelectedItem="{Binding SelectedProduct, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="ListBox_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!--<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Name}" Click="Button_Click"></Button>-->
+                        <TextBlock Text="{Binding DisplayAll}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <ListBox Grid.Column="2" ItemsSource="{Binding Cart}" ScrollViewer.VerticalScrollBarVisibility="Auto" Style="{StaticResource outsideItemBox}" SelectedItem="{Binding SelectedCartItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectionChanged="Cart_SelectionChanged">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <!--<Button HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding Name}" Click="Button_Click"></Button>-->
+                        <TextBlock Text="{Binding Display, UpdateSourceTrigger=PropertyChanged}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="3" VerticalAlignment="Top">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button FontSize="24" Grid.Column="1" Content="Checkout" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource checkoutButton}" Click="checkout_Button_Click"/>
+            <Button FontSize="24" Grid.Column="2" Content="Clear My Cart" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Style="{StaticResource clearButton}" Click="clearcart_Button_Click"/>
+            <Border Background="#bbbbf1">
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource lowerTextBox}" Text="{Binding Taxes, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                    <TextBlock Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource lowerTextBox}" Text="{Binding Subtotal, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                    <TextBlock Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Style="{StaticResource lowerTextBox}" Text="{Binding Total, UpdateSourceTrigger=PropertyChanged}"></TextBlock>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Page>
