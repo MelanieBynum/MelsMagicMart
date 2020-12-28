@@ -11,7 +11,7 @@
 
   <ItemGroup>
     <Reference Include="ShoppingCartLibrary">
-      <HintPath>..\..\..\Downloads\mbynumhw3 (1)\mbynumhw3\ShoppingCartLibrary\bin\Debug\netstandard2.0\ShoppingCartLibrary.dll</HintPath>
+      <HintPath>..\..\..\MagicMartUWP\bynumHW4\mbynumhw3\ShoppingCartLibrary\bin\Debug\netstandard2.0\ShoppingCartLibrary.dll</HintPath>
     </Reference>
   </ItemGroup>
 
